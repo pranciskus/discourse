@@ -92,7 +92,7 @@ acceptance("Tags", function (needs) {
           tags: [
             {
               id: 1,
-              name: "planters",
+              name: "test",
               topic_count: 1,
             },
           ],

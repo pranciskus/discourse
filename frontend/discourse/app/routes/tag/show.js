@@ -131,6 +131,27 @@ export default class TagShowRoute extends DiscourseRoute {
         name: list.topic_list.tags[0].name,
         staff: list.topic_list.tags[0].staff,
       });
+
+      const responseTagName = list.topic_list.tags[0].name;
+      if (responseTagName.toLowerCase() !== tagName) {
+        // tag was a synonym, redirect to canonical tag URL
+        const routeName = transition.to.name;
+        if (params.category_slug_path_with_id) {
+          return this.router.replaceWith(
+            routeName,
+            params.category_slug_path_with_id,
+            responseTagName
+          );
+        } else if (params.additional_tags) {
+          return this.router.replaceWith(
+            routeName,
+            responseTagName,
+            params.additional_tags
+          );
+        } else {
+          return this.router.replaceWith(routeName, responseTagName);
+        }
+      }
     }
 
     return {
